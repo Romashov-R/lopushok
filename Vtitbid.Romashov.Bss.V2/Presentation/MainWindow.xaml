@@ -8,10 +8,10 @@
     xmlns:vm="clr-namespace:Vtitbid.Romashov.Bss.V2.Presentation.ViewModels"
     mc:Ignorable="d"
     Title="Лопушок"
-    MinHeight="500"
-    MinWidth="1000"
-    Height="500"
-    Width="1000"
+    MinHeight="720"
+    MinWidth="1280"
+    Height="720"
+    Width="1280"
     WindowStartupLocation="CenterScreen"
     Icon="../Resources/icon.ico"
     FontFamily="Gabriola"
@@ -48,20 +48,28 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
+                
                 <Image
                     Grid.Column="0"
                     Source="../Resources/logo.png"
                     Margin="8" />
+                
                 <TextBox
-                    Name="tbSearch"
+                    Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}"
                     Grid.Column="1"
                     Margin="8"
                     VerticalContentAlignment="Center"/>
+                
                 <ComboBox
+                    ItemsSource="{Binding ValuesToSort}"
+                    SelectedItem="{Binding SortValue, UpdateSourceTrigger=PropertyChanged}"
                     Grid.Column="2"
                     Margin="8"
-                    VerticalContentAlignment="Center" />
+                    VerticalContentAlignment="Center"/>
+                
                 <ComboBox
+                    ItemsSource="{Binding ValuesToFilter}"
+                    SelectedItem="{Binding FilterValue, UpdateSourceTrigger=PropertyChanged}"
                     Grid.Column="3"
                     Margin="8"
                     VerticalContentAlignment="Center" />
@@ -69,7 +77,8 @@
             <!-- Content -->
             <ListView
                 Grid.Row="1"
-                ItemsSource="{Binding Products}"
+                ItemsSource="{Binding DisplayingProducts, UpdateSourceTrigger=PropertyChanged}"
+                SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}"
                 BorderBrush="White"
                 Background="Transparent"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
@@ -94,27 +103,27 @@
                                 <Image
                                     Grid.Column="0"
                                     Margin="8"
-                                    Source="{Binding Image}" />
+                                    Source="{Binding Image, UpdateSourceTrigger=PropertyChanged}" />
                                 <StackPanel
                                     Height="auto"
                                     Grid.Column="1"
                                     Orientation="Vertical"
                                     VerticalAlignment="Center">
                                     <TextBlock
-                                        Text="{Binding FullName}" />
+                                        Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock
-                                        Text="{Binding ArticleNumber}" />
+                                        Text="{Binding ArticleNumber, UpdateSourceTrigger=PropertyChanged}" />
                                     <TextBlock
-                                        Text="{Binding MaterialStringRepresentation}"
+                                        Text="{Binding MaterialStringRepresentation, UpdateSourceTrigger=PropertyChanged}"
                                         TextWrapping="WrapWithOverflow" />
                                 </StackPanel>
                                 <TextBlock
                                     Grid.Column="2"
-                                    Text="{Binding TotalCost}"
+                                    Text="{Binding TotalCost, UpdateSourceTrigger=PropertyChanged}"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center" />
                             </Grid>
-                        </Border>
+                        </Border>                        
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

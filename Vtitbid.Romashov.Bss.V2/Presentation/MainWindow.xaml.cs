@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using Vtitbid.Romashov.Bss.V2.Domain.Entities;
 using Vtitbid.Romashov.Bss.V2.Presentation.ViewModels;
 
 namespace Vtitbid.Romashov.Bss.V2.Presentation
@@ -20,10 +18,9 @@ namespace Vtitbid.Romashov.Bss.V2.Presentation
 
         private void ListView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            ListView lw = (ListView)sender;
-            if(lw.SelectedItem != null)
+            if(_viewModel.SelectedProduct != null)
             {
-                ProductWindow productWindow = new ProductWindow((Product)lw.SelectedItem);
+                var productWindow = new ProductWindow(_viewModel.SelectedProduct, _viewModel.DisplayingProducts, _viewModel.ProductTypes);
                 productWindow.ShowDialog();
             }
         }

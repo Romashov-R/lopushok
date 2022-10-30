@@ -7,84 +7,191 @@
         xmlns:vm="clr-namespace:Vtitbid.Romashov.Bss.V2.Presentation.ViewModels"
         mc:Ignorable="d"
         Title="Добавление / редактирование продукта"
-        MinHeight="500"
-        MinWidth="500"
-        Width="500"
-        Height="auto"
+        MinHeight="720"
+        MinWidth="640"
+        Width="640"
+        Height="720"
         WindowStartupLocation="CenterScreen"
         Icon="../Resources/icon.ico"
         FontFamily="Gabriola"
         FontSize="20">
+
     <Window.DataContext>
         <vm:ProductWindowViewModel />
     </Window.DataContext>
-    
+
     <Grid>
         <Image 
             Source="/Resources/logo.png"
             Opacity="0.25"/>
-        
-        <StackPanel
-            Orientation="Vertical">
-            <TextBlock
-                Text="Название:"
-                Margin="8,0"/>
-            <TextBox
-                Margin="8,0"                
-                Text="{Binding Product.Title}"
-                Background="{StaticResource ColorSecondary}" 
-                BorderBrush="{StaticResource ColorAccent}"/>
-            <TextBlock
-                Text="Тип продукта:"
-                Margin="8,0" />
-            <ComboBox
-                Margin="8,0"
-                ItemsSource="{Binding ProductTypes}"
-                DisplayMemberPath="Title"
-                Background="{StaticResource ColorSecondary}"
-                BorderBrush="{StaticResource ColorAccent}" />
-            <TextBlock
-                Text="Артикул:"
-                Margin="8,0" />
-            <TextBox
-                Margin="8,0"
-                Text="{Binding Product.ArticleNumber}"
-                Background="{StaticResource ColorSecondary}"
-                BorderBrush="{StaticResource ColorAccent}" />
-            <TextBlock
-                Text="Описание:"
-                Margin="8,0" />
-            <TextBox
-                Margin="8,0"
-                Text="{Binding Product.Title}"
-                Background="{StaticResource ColorSecondary}"
-                BorderBrush="{StaticResource ColorAccent}" />
-            <TextBlock
-                Text="Минимальная стоимость для агента:"
-                Margin="8,0" />
-            <TextBox
-                Margin="8,0"
-                Text="{Binding Product.MinCostForAgent}"
-                Background="{StaticResource ColorSecondary}"
-                BorderBrush="{StaticResource ColorAccent}" />
-            <ListView
-                Margin="8"
-                ItemsSource="{Binding Product.ProductMaterials}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Border>
-                            
-                        </Border>
-                    </DataTemplate>
-                </ListView.ItemTemplate>                
-            </ListView>            
-            <Button 
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Orientation="Vertical"
+                Grid.Row="0">
+
+                <TextBlock
+                    Text="Название:"
+                    Margin="8,0"/>
+                <TextBox
+                    Margin="8,0"                
+                    Text="{Binding SelectedProduct.Title}"
+                    Background="{StaticResource ColorSecondary}" 
+                    BorderBrush="{StaticResource ColorAccent}"/>
+                
+                <TextBlock
+                    Text="Тип продукта:"
+                    Margin="8,0" />
+                <ComboBox
+                    Margin="8,0"
+                    ItemsSource="{Binding ProductTypes}"
+                    SelectedItem="{Binding SelectedProductType, UpdateSourceTrigger=PropertyChanged}"
+                    DisplayMemberPath="Title"
+                    Background="{StaticResource ColorSecondary}"
+                    BorderBrush="{StaticResource ColorAccent}" />
+                
+                <TextBlock
+                    Text="Артикул:"
+                    Margin="8,0" />
+                <TextBox
+                    Margin="8,0"
+                    Text="{Binding SelectedProduct.ArticleNumber}"
+                    Background="{StaticResource ColorSecondary}"
+                    BorderBrush="{StaticResource ColorAccent}" />
+                
+                <TextBlock
+                    Text="Описание:"
+                    Margin="8,0" />
+                <TextBox
+                    Margin="8,0"
+                    Text="{Binding SelectedProduct.Description}"
+                    Background="{StaticResource ColorSecondary}"
+                    BorderBrush="{StaticResource ColorAccent}" />
+                
+                <TextBlock
+                    Text="Минимальная стоимость для агента:"
+                    Margin="8,0" />
+                <TextBox
+                    Margin="8,0"
+                    Text="{Binding SelectedProduct.MinCostForAgent}"
+                    Background="{StaticResource ColorSecondary}"
+                    BorderBrush="{StaticResource ColorAccent}" />
+
+                <TextBlock
+                    Text="Полная стоимость продукта:"
+                    Margin="8,0" />
+                
+                <TextBlock
+                    Margin="8,0"
+                    Text="{Binding SelectedProduct.TotalCost}"
+                    FontWeight="ExtraBold"
+                    />
+
+                <TextBlock
+                    Text="Материалы:"
+                    Margin="8,0" />
+
+            </StackPanel>
+
+            <Grid
+                Grid.Row="1"
+                Margin="8,0,8,8">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <ListView               
+                    Grid.Row="0"
+                    Background="Transparent"
+                    BorderBrush="{StaticResource ColorAccent}"
+                    ItemsSource="{Binding ProductMaterials, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalContentAlignment="Stretch">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Background="{StaticResource ColorSecondary}"
+                                Margin="0,4,0,4"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource ColorAccent}">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock 
+                                        Grid.Column="0"
+                                        Text="{Binding Count}"
+                                        Margin="8,4"/>
+                                    
+                                    <TextBlock 
+                                        Grid.Column="1"
+                                        Text="{Binding Material.Title}"
+                                        VerticalAlignment="Center"/>
+
+                                    <TextBlock
+                                        Grid.Column="2"
+                                        Text="{Binding Material.Cost}"
+                                        VerticalAlignment="Center"
+                                        Margin="8,4"/>
+
+                                </Grid>
+                                
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Grid
+                    Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        Grid.Column="0"
+                        Content="Удалить материал"
+                        Margin="0,8,4,0"
+                        Background="Red"
+                        BorderBrush="LightCoral"
+                        Foreground="White"
+                        FontWeight="Bold"/>
+                    
+                    <Button
+                        Grid.Column="1"
+                        Content="Добавить материал"
+                        Margin="4,8,0,0"
+                        Background="Green"
+                        BorderBrush="LightGreen"
+                        Foreground="White"
+                        FontWeight="Bold"/>
+                </Grid>
+
+            </Grid>
+
+            <Button
+                Name="btnSave"
+                Grid.Row="2"
                 Content="Сохранить"
                 Margin="8,0,8,8"
-                Background="{StaticResource ColorAccent}"
-                BorderBrush="{StaticResource ColorSecondary}"
-                Foreground="White"
-                FontWeight="Bold"/>
-        </StackPanel>
+                Background="{StaticResource ColorSecondary}"
+                BorderBrush="{StaticResource ColorAccent}"
+                Foreground="Black"
+                FontWeight="Bold"
+                Click="btnSave_Click"/>
+
+        </Grid>
     </Grid>
 </Window>

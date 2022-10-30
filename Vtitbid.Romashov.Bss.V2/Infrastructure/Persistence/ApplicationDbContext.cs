@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Vtitbid.Romashov.Bss.V2.Domain.Entities;
 
 namespace Vtitbid.Romashov.Bss.V2.Infrastructure.Persistence
@@ -35,7 +33,7 @@ namespace Vtitbid.Romashov.Bss.V2.Infrastructure.Persistence
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=PC-232-00\\SQLEXPRESS;Database=ROMASHOV02;Trusted_Connection=true");
+                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=Variant2;Trusted_Connection=true");
             }
         }
 

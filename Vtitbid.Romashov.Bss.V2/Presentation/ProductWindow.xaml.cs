@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Vtitbid.Romashov.Bss.V2.Domain.Entities;
 using Vtitbid.Romashov.Bss.V2.Presentation.ViewModels;
 
@@ -21,11 +10,23 @@ namespace Vtitbid.Romashov.Bss.V2.Presentation
     /// </summary>
     public partial class ProductWindow : Window
     {
-        public ProductWindow(Product product)
+        private ProductWindowViewModel _viewModel;
+
+        public ProductWindow(Product selectedProduct, List<Product> products, List<ProductType> productTypes)
         {
             InitializeComponent();
-            var vm = (ProductWindowViewModel)DataContext;
-            vm.Product = product;            
+            _viewModel = (ProductWindowViewModel)DataContext;
+            
+            _viewModel.SelectedProduct = selectedProduct;
+            _viewModel.Products = products;
+            _viewModel.ProductTypes = productTypes;
+            _viewModel.SelectedProductType = selectedProduct.ProductType;
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.SaveChanges();
+            Close();
         }
     }
 }
